@@ -12,7 +12,11 @@ export const AddCategory = ({newCategory}) => {
         event.preventDefault();
         // console.log('Hola desde On SUbmit')
 
+        // verificar que no se enveien los datos en blanbco
+        if (inputValue.trim().length <= 0) return;
         newCategory(inputValue)
+        //hace que despues de enviar una categoria el input quede vacio
+        setinputValue('')
     }
     return (
         <>

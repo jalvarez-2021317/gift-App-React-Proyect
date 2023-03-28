@@ -2,13 +2,16 @@
 
 import { useState } from "react";
 import { AddCategory } from "./components/AddCategory";
+import { GiftGrid } from "./components/GiftGrid";
 
 export const GifApp = () => {
     //useStateSniped sirve para generar un hook que es una funcion predefinida en react
-    const [categorias, setcategorias] = useState(['pokemon', 'Spy X Family','Naruto'])
-    const onAddCategory = (newCategoryAdded) =>{
+    const [categorias, setcategorias] = useState(['Naruto'])
+    const onAddCategory = (newCategoryAdded) => {
+        // analizar si la categoria insertada ya existe en el array
+        if (categorias.includes(newCategoryAdded)) return;
         // ... Operador spret copia el array y agrega el valor
-        setcategorias ([...categorias,newCategoryAdded])
+        setcategorias([ newCategoryAdded, ...categorias])
     }
     return (
         <>
@@ -16,15 +19,16 @@ export const GifApp = () => {
             <h1>Gift App</h1>
 
             {/* imput/buscador */}
-            <AddCategory newCategory = {(value) => onAddCategory(value)}/>
+            <AddCategory newCategory={(value) => onAddCategory(value)} />
             {/* listado de los gift */}
-            <ol>
 
-                {/* Agregar una nueva categoria dentro del array */}
-                {categorias.map(categoria => {
-                    return <li key={categoria}> {categoria}</li>
-                })}
-            </ol>
+            {/* Agregar una nueva categoria dentro del array */}
+            {categorias.map((cat) => 
+                (
+                    <GiftGrid key={cat}  category = {cat} />
+                )
+               
+            )}
             {/* gif Item */}
         </>
 
